@@ -24,3 +24,15 @@ If($null -ne (Get-Module -ListAvailable -Name EnablePIMPowerShell))
 Finally, you can call the code to enable one or more PIM roles.  You must log in when prompted.  This allows for you to run the script as a normal user, but login as an admin account for example to enable PIM roles on the admin account.
 
 `Enable-PIMPowerShell`
+
+```
+Which role would you like to activate?
+  1 - Global Reader 
+  2 - Usage Summary Reports Reader 
+  3 - Message Center Privacy Reader 
+  4 - Message Center Reader 
+  5 - Reports Reader 
+'R/r' to refresh without activating
+Which would you like to activate? ('Q/q' to quit without activating):
+```
+Note: You will only see roles you have access to on the account you log in with.
