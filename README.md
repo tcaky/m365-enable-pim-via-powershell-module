@@ -15,9 +15,7 @@ Alternatively, you can add the Import to your $profile.
 ```
 If($null -ne (Get-Module -ListAvailable -Name EnablePIMPowerShell))
 {
-    
-    # My custom helper functions module specific to SharePoint
-	Write-Host "Importing module EnablePIMPowerShell"
+    Write-Host "Importing module EnablePIMPowerShell"
     Import-Module EnablePIMPowerShell
 }
 ```
