@@ -1,8 +1,9 @@
 
 #Ensure you have AzureADPreview installed
 #Use Install-Module AzureADPreview to install module
-Import-Module AzureADPreview
+Import-Module AzureADPreview -ErrorAction Stop
 
+Import-LocalizedData -BindingVariable MsgTable
 
 #region Helper Functions
 Function New-PimSchedule
@@ -167,7 +168,7 @@ Function Enable-PIMPowerShell
 
 
         Clear-Host
-        Write-Host 'Which role would you like to activate?'
+        Write-Host $MsgTable.WhichRole
 
         
         If(
@@ -186,14 +187,14 @@ Function Enable-PIMPowerShell
             $CurrentlyActive = [String]::Empty
             If($EligibleRoles[$i].AzureADRoleGuid -in $ActiveRolesGuidArray)
             {
-                $CurrentlyActive = '-= (Currently Active) =-'
+                $CurrentlyActive = $MsgTable.CurrentlyActive
             }
             Write-Host (' {0,2} - {1} {2}' -f ($i + 1).ToString('D1'), $EligibleRoles[$i].AzureADRole, $CurrentlyActive)
             
         }
 
-        Write-Host '''R/r'' to refresh without activating'
-        $Choice = Read-Host -Prompt 'Which would you like to activate? (''Q/q'' to quit without activating)'
+        Write-Host $MsgTable.Refresh
+        $Choice = Read-Host -Prompt $MsgTable.Choice
 
         If($Choice -eq 'Q' -or $Choice -eq 'q')
         {
@@ -240,7 +241,7 @@ Function Enable-PIMPowerShell
                             $Result = Open-AzureADMSPrivilegedRoleAssignmentRequest @Splat
                             If($Result -is [Microsoft.Open.MSGraph.Model.AzureADMSPrivilegedRoleAssignmentRequestRequest])
                             {
-                                Write-Host ("Activated '{0}' for {1} hours." -f $EligibleRoles[$OptionToInt - 1].AzureADRole, $HoursOffset) -BackgroundColor DarkGreen
+                                Write-Host ($MsgTable.HoursActivated -f $EligibleRoles[$OptionToInt - 1].AzureADRole, $HoursOffset) -BackgroundColor DarkGreen
                                 Break
                             }
                         }
@@ -258,21 +259,21 @@ Function Enable-PIMPowerShell
 
                     If($?)
                     {
-                        Write-Host 'Activation successful' -ForegroundColor Green
+                        Write-Host $MsgTable.ActivationSuccess -ForegroundColor Green
                     } 
                     Else 
                     {
-                        Write-Host 'Activation failed, please ensure you have the rights to access these permissions' -ForegroundColor Red
+                        Write-Host $MsgTable.ActivationFail -ForegroundColor Red
                     }
                 }
                 Else
                 {
-                    Write-Host "'$OptionToInt' not within allowable choices" -BackgroundColor Red
+                    Write-Host ($MsgTable.OptionNotInChoices01 -f $OptionToInt) -BackgroundColor Red
                     #Continue
-                    Read-Host -Prompt 'Hit enter key to continue QQ'
+                    Read-Host -Prompt $MsgTable.OptionNotInChoices02
                 }
             }
-            Read-Host -Prompt 'Hit enter key to continue'
+            Read-Host -Prompt $MsgTable.EnterToContinue
         }
     }
     While($true)
