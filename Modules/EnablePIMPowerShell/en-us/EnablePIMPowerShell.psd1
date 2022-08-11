@@ -1,6 +1,6 @@
 #culture="en-us"
 ConvertFrom-StringData -StringData @'
-    WhichRole = Which role would you like to activate TEST {0}?
+    WhichRole = Which role would you like to activate?
     CurrentlyActive = -= (Currently Active) =-
     Refresh = ''R/r'' to refresh without activating
     Choice = Which would you like to activate? (''Q/q'' to quit without activating)
