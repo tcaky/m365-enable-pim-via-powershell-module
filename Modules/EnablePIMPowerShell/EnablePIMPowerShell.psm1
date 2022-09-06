@@ -1,3 +1,5 @@
+# Force TLS 1.2
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 #Ensure you have AzureADPreview installed
 #Use Install-Module AzureADPreview to install module
