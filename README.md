@@ -36,4 +36,5 @@ Which role would you like to activate?
 Which would you like to activate? ('Q/q' to quit without activating):
 ```
 Note 1: You will only see roles you have access to on the account you log in with.
+
 Note 2:  You can pass in multiple values separated by commas (order does not matter). I.e. '1,2,3,4,5' or '4,1,3', etc.
