@@ -147,10 +147,23 @@ Function Get-PIMRoleAssignmentByUserPrincipalName
 Function Enable-PIMPowerShell
 {
     [CmdletBinding()]
-    Param()
+    Param(
+        [Switch]$ForceAdConnect
+    )
 
-
-    $Connection = Connect-AzureAD
+    Try
+    {
+        Get-AzureADTenantDetail | Out-Null
+    }
+    Catch [Microsoft.Open.Azure.AD.CommonLibrary.AadNeedAuthenticationException]
+    {
+        $NoAzureADConnection = $true
+    }
+    
+    If($NoAzureADConnection -eq $true -or $PSBoundParameters.ContainsKey('ForceAdConnect'))
+    {
+        $Connection = Connect-AzureAD
+    }
 
     Do
     {
@@ -203,7 +216,12 @@ Function Enable-PIMPowerShell
             Break
         }
 
-        If($Choice -eq 'R' -or $Choice -eq 'r')
+        If(
+            # English
+            $Choice -eq 'R' -or $Choice -eq 'r' -or
+            # French
+            $Choice -eq 'A' -or $Choice -eq 'a'
+        )
         {
             Continue
         }

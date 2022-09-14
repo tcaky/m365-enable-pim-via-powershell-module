@@ -1,13 +1,13 @@
 #culture="fr-ca"
 ConvertFrom-StringData -StringData @'
-    WhichRole = Which role would you like to activate?
-    CurrentlyActive = -= (Currently Active) =-
-    Refresh = ''R/r'' to refresh without activating
-    Choice = Which would you like to activate? (''Q/q'' to quit without activating)
-    ActivationSuccess = Activation successful
-    ActivationFail = Activation failed, please ensure you have the rights to access these permissions
-    HoursActivated = Activated ''{0}'' for {1} hours.
-    OptionNotInChoices01 = ''{0}'' not within allowable choices
-    OptionNotInChoices02 = Hit enter key to continue
-    EnterToContinue = Hit enter key to continue
+    WhichRole = Quel rôle souhaitez-vous activer?
+    CurrentlyActive = -= (Actuellement Actif) =-
+    Refresh = ''A/a'' actualiser sans activer
+    Choice = Lequel voulez-vous activer? (''Q/q'' quitter sans activer)
+    ActivationSuccess = Succès de l''activation
+    ActivationFail = Échec de l''activation, veuillez vous assurer que vous avez les droits d''accès à ces permissions
+    HoursActivated = Activé ''{0}'' pour {1} heures.
+    OptionNotInChoices01 = ''{0}'' pas dans les choix autorisés
+    OptionNotInChoices02 = Appuyez sur la touche Entrée pour continuer
+    EnterToContinue = Appuyez sur la touche Entrée pour continuer
 '@
