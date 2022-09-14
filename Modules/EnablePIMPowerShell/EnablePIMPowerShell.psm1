@@ -109,7 +109,7 @@ Function Get-PIMRoleAssignmentByUserPrincipalName
             {
                 Try 
                 {
-                    $AzureUser = Get-AzureADUser -ObjectId $User -ErrorAction Stop | select DisplayName, UserPrincipalName, ObjectId
+                    $AzureUser = Get-AzureADUser -ObjectId $User -ErrorAction Stop | Select-Object DisplayName, UserPrincipalName, ObjectId
                     $UserRoles = Get-AzureADMSPrivilegedRoleAssignment -ProviderId aadRoles -ResourceId $TenantId -Filter "subjectId eq '$($AzureUser.ObjectId)'"
  
                     If($UserRoles)
