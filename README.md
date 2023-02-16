@@ -1,10 +1,7 @@
-{% note %}
+>**Note:** A required module for this mudule to function as it was written is AzureADPreview.  This will no doubt change at some point to a full release, and the code will have to be updated.
+>
+>There is an issue with the time windows tied to PIM roles.  I have not found a way to pull back the time-boundaries associated to given PIM roles (these are something each organization can customize).  The organization I worked for when I wrote this used only four windows (8,4,2,1 - all hours), and therefore I hard-coded those in.  Unless your organization is using the same time bounds, this code may fail.  I will update this module if I ever figure out how to pull back the time window associated to a given PIM role.
 
-**Note:** A required module for this mudule to function as it was written is AzureADPreview.  This will no doubt change at some point to a full release, and the code will have to be updated.
-
-There is an issue with the time windows tied to PIM roles.  I have not found a way to pull back the time-boundaries associated to given PIM roles (these are something each organization can customize).  The organization I worked for when I wrote this used only four windows (8,4,2,1 - all hours), and therefore I hard-coded those in.  Unless your organization is using the same time bounds, this code may fail.  I will update this module if I ever figure out how to pull back the time window associated to a given PIM role.
-
-{% endnote %}
 
 # M365 Enable-PIM-via-Powershell-module
 
