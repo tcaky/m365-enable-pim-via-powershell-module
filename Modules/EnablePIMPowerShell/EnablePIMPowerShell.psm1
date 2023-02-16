@@ -76,12 +76,12 @@ Function Get-PIMRoleAssignmentByUserPrincipalName
             ValueFromPipelineByPropertyName = $true,
             Position  = 0
         )]
-        [string[]]  $UserPrincipalName,
+        [string[]]$UserPrincipalName,
         [Parameter(
             Mandatory = $false,
             Position = 1
         )]
-        [string]    $TenantId
+        [string]$TenantId
     )
  
     BEGIN 
@@ -103,7 +103,7 @@ Function Get-PIMRoleAssignmentByUserPrincipalName
  
     PROCESS 
     {
-        ForEach ($User in $UserPrincipalName) 
+        ForEach($User in $UserPrincipalName) 
         {
             Try 
             {
