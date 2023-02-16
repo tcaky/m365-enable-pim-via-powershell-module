@@ -103,40 +103,37 @@ Function Get-PIMRoleAssignmentByUserPrincipalName
  
     PROCESS 
     {
-        If($PSBoundParameters.ContainsKey('UserPrincipalName')) 
+        ForEach ($User in $UserPrincipalName) 
         {
-            ForEach ($User in $UserPrincipalName) 
+            Try 
             {
-                Try 
+                $AzureUser = Get-AzureADUser -ObjectId $User -ErrorAction Stop | Select-Object DisplayName, UserPrincipalName, ObjectId
+                $UserRoles = Get-AzureADMSPrivilegedRoleAssignment -ProviderId aadRoles -ResourceId $TenantId -Filter "subjectId eq '$($AzureUser.ObjectId)'"
+
+                If($UserRoles)
                 {
-                    $AzureUser = Get-AzureADUser -ObjectId $User -ErrorAction Stop | Select-Object DisplayName, UserPrincipalName, ObjectId
-                    $UserRoles = Get-AzureADMSPrivilegedRoleAssignment -ProviderId aadRoles -ResourceId $TenantId -Filter "subjectId eq '$($AzureUser.ObjectId)'"
- 
-                    If($UserRoles)
+                    ForEach($Role in $UserRoles)
                     {
-                        ForEach($Role in $UserRoles)
-                        {
-                            $RoleObject = $AdminRoles | Where-Object {
-                                $Role.RoleDefinitionId -eq $_.id
-                            }
- 
-                            [PSCustomObject]@{
-                                UserPrincipalName = $AzureUser.UserPrincipalName
-                                AzureADRole       = $RoleObject.DisplayName
-                                AzureADRoleGuid   = $RoleObject.Id
-                                PIMAssignment     = $Role.AssignmentState
-                                MemberType        = $Role.MemberType
-                            }
+                        $RoleObject = $AdminRoles | Where-Object {
+                            $Role.RoleDefinitionId -eq $_.id
+                        }
+
+                        [PSCustomObject]@{
+                            UserPrincipalName = $AzureUser.UserPrincipalName
+                            AzureADRole       = $RoleObject.DisplayName
+                            AzureADRoleGuid   = $RoleObject.Id
+                            PIMAssignment     = $Role.AssignmentState
+                            MemberType        = $Role.MemberType
                         }
                     }
-                } 
-                Catch 
-                {
-                    Write-Error $_.Exception.Message
                 }
+            } 
+            Catch 
+            {
+                Write-Error $_.Exception.Message
             }
         }
-    }
+}
  
     END 
     {
